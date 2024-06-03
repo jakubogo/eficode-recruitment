@@ -1,0 +1,13 @@
+# Eficode Recruitment 2024
+# Weatherapp
+First I focused on running the app locally in order to get a good idea of the operational principles, as well as the environment needs. I created an account in the weatherapp api and got myself an API key to use in the API calls made by index.js in the backend.
+# Docker
+Once I got a grip on how the app runs locally, I got to dockerizing it. I created separate Dockerfiles for both backend and frontend. Both are using node as their base image. First I copy all required dependencies, then they are both installed. Only after that, I copy the rest of the project folders - this way, thanks to docker image layer caching, when the source code is changed, rebuilding the image will be quick.
+I expose port 9000 for the backend image, as this is the port that the backend is listening for calls, and port 8000 for output control and debugging.
+For ease of development, I create a docker-compose file which runs the containers in the same network, sets up proper port mapping and required environmental variables. In order to keep track of the development files and keep them up to date with the container data, I create volumes inside both containers, mapping the local project folders to their container counterparts. This also enables hot-reload to be active - I add in backend/package.json: 
+# "start-watch" : "WATCHPACK_POLLING=true node src/index.js",
+in frontend/package.json:
+#    "start-watch" : "WATCHPACK_POLLING=true node_modules/.bin/webpack-dev-server --config webpack.config.js --progress --inline --colors", 
+and run both containers with:
+# 'npm run start-watch'
+This command ensures hot-reload to be active.

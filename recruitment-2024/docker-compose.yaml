@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  backend:
+    build: ./backend
+    container_name: backend_weatherapp
+    ports:
+      - 9000:9000
+    environment:
+      - APPID=ac4b8db66b9020946c14034489bcff0e
+      - MAP_ENDPOINT=http://api.openweathermap.org/data/2.5
+      - TARGET_CITY=Helsinki,fi
+    volumes:
+      - "./backend/:/backend"
+      - /backend/node_modules
+    stdin_open: true
+    tty: true
+
+  frontend:
+    build: ./frontend
+    container_name: frontend_weatherapp
+    ports:
+      - 8000:8000
+    environment:
+      - ENDPOINT=http://localhost:9000/api
+      - HOST=0.0.0.0
+      - PORT=8000
+    volumes:
+      - "./frontend/:/frontend"
+      - /frontend/node_modules
+    stdin_open: true
+    tty: true
+  
