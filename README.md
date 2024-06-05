@@ -3,9 +3,15 @@
 1. On a system with docker installed, start the app by running 'docker-compose up' in the main project directory (recruitment-2024) 
 2. The output of the app can be observed on http://localhost:8000
 3. Live Reloading is enabled - any changes made in the projects file structure or the code will be reflected immediately.
-
-
 -------------------------------------------------------
+# Cloud Hosting
+I chose to host my app in Microsoft Azure. There I set up a virtual machine to host the contenerized application prepared in the first section.
+1. Connect to the Ubuntu VM with ssh eficode@20.215.40.23. The provided public key was added and admin rights were granted to user eficode.
+2. The project can be found in jakubogo user directory; there run 'docker-compose up' to get the app and proxy up and running.
+3. The app can be accessed at http://20.215.40.23:8000/. The reverse proxy set on http://20.215.40.23/weatherapp is only able to communicate with the frontend portion of the application. I unfortunately wasn't able to solve this issue.
+-------------------------------------------------------
+
+
 # Weatherapp
 
 There was a beautiful idea of building an app that would show the upcoming weather. The developers wrote a nice backend and a frontend following the latest principles and - to be honest - bells and whistles. However, the developers did not remember to add any information about the infrastructure or even setup instructions in the source code.
