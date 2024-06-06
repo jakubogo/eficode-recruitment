@@ -10,6 +10,12 @@ I chose to host my app in Microsoft Azure. There I set up a virtual machine to h
 2. The project can be found in jakubogo user directory; there run 'docker-compose up' to get the app and proxy up and running.
 3. The app can be accessed at http://20.215.40.23:8000/. The reverse proxy set on http://20.215.40.23/weatherapp is only able to communicate with the frontend portion of the application. I unfortunately wasn't able to solve this issue.
 -------------------------------------------------------
+# Ansible
+I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansible control-node and created another Ubuntu VM instance as an Ansible slave (ansible-playground). You can access both VMs with username eficode and your private key.
+1. Connect to the control-node using ssh eficode@20.215.40.23. In the jakubogo user directory you will find two ansible playbooks for installing docker as well as deploying the application.
+2. The slave VM is running with a clean image and can be employed with the application by running 'ansible-playbook install-docker-playbook.yml' and 'ansible-playbook deploy-weatherapp-playbook.yml'.
+3. After that, you should be able to ssh into the slave VM and see the app running. Unfortunately, the app is still only accessed through http://20.215.40.23:8000/. I wasn't able to change the ENDPOINT environment variable in docker-compose file to reflect that of the new VM - there is probably a better way to do it and that is the most important thing to fix.
+-------------------------------------------------------
 
 
 # Weatherapp
