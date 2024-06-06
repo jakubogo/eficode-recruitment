@@ -15,6 +15,7 @@ I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansibl
 1. Connect to the control-node using ssh eficode@20.215.40.23. In the jakubogo user directory you will find two ansible playbooks for installing docker as well as deploying the application.
 2. The slave VM is running with a clean image and can be employed with the application by running 'ansible-playbook install-docker-playbook.yml' and 'ansible-playbook deploy-weatherapp-playbook.yml'.
 3. After that, you should be able to ssh into the slave VM and see the app running. Unfortunately, the app is still only accessed through http://20.215.40.23:8000/. I wasn't able to change the ENDPOINT environment variable in docker-compose file to reflect that of the new VM - there is probably a better way to do it and that is the most important thing to fix.
+4. The app can be torn down by running 'ansible-playbook compose-down.yml'.
 -------------------------------------------------------
 
 
