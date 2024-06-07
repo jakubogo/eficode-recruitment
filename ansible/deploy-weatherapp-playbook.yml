@@ -1,0 +1,68 @@
+---
+- hosts: linux
+  become: true
+
+  tasks:
+    - name: Copy backend/Dockerfile
+      ansible.builtin.copy:
+        src: /home/jakubogo/backend/Dockerfile
+        dest: /home/ansible/backend/
+      
+    - name: Copy backend/package.json  
+      ansible.builtin.copy:
+        src: /home/jakubogo/backend/package.json
+        dest: /home/ansible/backend/
+
+    - name: Copy backend/package-lock.json  
+      ansible.builtin.copy:
+        src: /home/jakubogo/backend/package-lock.json
+        dest: /home/ansible/backend/
+    
+    - name: Copy backend/src
+      ansible.builtin.copy:
+        src: /home/jakubogo/backend/src
+        dest: /home/ansible/backend/
+
+    - name: Copy frontend/Dockerfile
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/Dockerfile
+        dest: /home/ansible/frontend/
+      
+    - name: Copy frontend/package.json  
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/package.json
+        dest: /home/ansible/frontend/
+
+    - name: Copy frontend/package-lock.json  
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/package-lock.json
+        dest: /home/ansible/frontend/
+    
+    - name: Copy frontend/webpack.config.js
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/webpack.config.js
+        dest: /home/ansible/frontend/
+
+    - name: Copy frontend/.eslintrc
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/.eslintrc
+        dest: /home/ansible/frontend/
+    
+    - name: Copy frontend/src
+      ansible.builtin.copy:
+        src: /home/jakubogo/frontend/src
+        dest: /home/ansible/frontend/
+
+    - name: Copy proxy
+      ansible.builtin.copy:
+        src: /home/jakubogo/proxy
+        dest: /home/ansible/
+    
+    - name: Copy docker-compose.yaml
+      ansible.builtin.copy:
+        src: /home/jakubogo/docker-compose.yaml
+        dest: /home/ansible/
+        
+    - name: Run docker-compose
+      ansible.builtin.shell: |
+        sudo docker-compose up -d
