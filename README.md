@@ -17,8 +17,9 @@ I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansibl
 3. The app can be torn down by running '/ansible/ansible-playbook compose-down.yml'.
 4. Now the disappointing part - I wasn't able to dynamically change the ENDPOINT environment variable in the 'docker-compose.yaml' file. This means, that the app spun up using this script, will only work if the first instance on the control node is active. I am aware this is a no-go and defeats the entire purpose of this project, but I couldn't find a way to fix it - I would love to know the correct way to go about this, so I'll appreciate your feedback.
 -------------------------------------------------------
-
-
+# Summary and TODO
+I am aware that my project has glaring shortcomings, most important one I mentioned in point 4. of the previous section. Anyhow, I had lots of fun working on this project. It was very interesting, I learned a lot and I'd love to know what it the state of the art approach to solving this issue. Regarding TODOs, I would surely want to automate the creation of the contol-node environment.
+-------------------------------------------------------
 # Weatherapp
 
 There was a beautiful idea of building an app that would show the upcoming weather. The developers wrote a nice backend and a frontend following the latest principles and - to be honest - bells and whistles. However, the developers did not remember to add any information about the infrastructure or even setup instructions in the source code.
