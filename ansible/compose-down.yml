@@ -1,8 +1,0 @@
----
-- hosts: linux
-  become: true
-
-  tasks:
-    - name: Run docker-compose down
-      ansible.builtin.shell: |
-        sudo docker-compose down
