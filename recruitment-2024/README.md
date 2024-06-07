@@ -1,10 +1,25 @@
 # Recruitment Task
+All files used for development can be found in 'rectuitment-2024' directory.
 # Docker
 1. On a system with docker installed, start the app by running 'docker-compose up' in the main project directory (recruitment-2024) 
 2. The output of the app can be observed on http://localhost:8000
 3. Live Reloading is enabled - any changes made in the projects file structure or the code will be reflected immediately.
-
-
+-------------------------------------------------------
+# Cloud Hosting
+I chose to host my app in Microsoft Azure. There I set up a virtual machine to host the contenerized application prepared in the first section.
+1. Connect to the Ubuntu VM with ssh eficode@20.215.40.23. The provided public key was added and admin rights were granted to user eficode.
+2. The project can be found in jakubogo user directory; there run 'docker-compose up' to get the app and proxy up and running.
+3. The app can be accessed at http://20.215.40.23:8000/. The reverse proxy set on http://20.215.40.23/weatherapp is only able to communicate with the frontend portion of the application. I unfortunately wasn't able to solve this issue.
+-------------------------------------------------------
+# Terraform & Ansible
+I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansible control-node and Terraform host. 
+1. Connect to the control-node using ssh eficode@20.215.40.23. 
+2. In order to spin up a new VM and deploy the weatherapp on it, run 'bash create-vm-deploy-weatherapp.sh' in 'jakubogo' directory. This script will spin up a new linux virtual machine using Terraform, install docker, docker-compose and deploy the weatherapp with Ansible. The app can then be viewed on 20.215.246.110:8000. Note, that to run this script, you have to be logged in to the Microsoft account, so I don't suppose you will be able to do it yourself, but it was tested and it works :).
+3. The app can be torn down by running '/ansible/ansible-playbook compose-down.yml'.
+4. Now the disappointing part - I wasn't able to dynamically change the ENDPOINT environment variable in the 'docker-compose.yaml' file. This means, that the app spun up using this script, will only work if the first instance on the control node is active. I am aware this is a no-go and defeats the entire purpose of this project, but I couldn't find a way to fix it - I would love to know the correct way to go about this, so I'll appreciate your feedback.
+-------------------------------------------------------
+# Summary and TODO
+I am aware that my project has glaring shortcomings, most important one I mentioned in point 4. of the previous section. Anyhow, I had lots of fun working on this project. It was very interesting, I learned a lot and I'd love to know what it the state of the art approach to solving this issue. Regarding TODOs, I would surely want to automate the creation of the contol-node environment.
 -------------------------------------------------------
 # Weatherapp
 
