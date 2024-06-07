@@ -1,4 +1,5 @@
 # Recruitment Task
+All files used for development can be found in 'rectuitment-2024' directory.
 # Docker
 1. On a system with docker installed, start the app by running 'docker-compose up' in the main project directory (recruitment-2024) 
 2. The output of the app can be observed on http://localhost:8000
