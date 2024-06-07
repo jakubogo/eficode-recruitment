@@ -10,12 +10,12 @@ I chose to host my app in Microsoft Azure. There I set up a virtual machine to h
 2. The project can be found in jakubogo user directory; there run 'docker-compose up' to get the app and proxy up and running.
 3. The app can be accessed at http://20.215.40.23:8000/. The reverse proxy set on http://20.215.40.23/weatherapp is only able to communicate with the frontend portion of the application. I unfortunately wasn't able to solve this issue.
 -------------------------------------------------------
-# Ansible
-I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansible control-node and created another Ubuntu VM instance as an Ansible slave (ansible-playground). You can access both VMs with username eficode and your private key.
-1. Connect to the control-node using ssh eficode@20.215.40.23. In the jakubogo user directory you will find two ansible playbooks for installing docker as well as deploying the application.
-2. The slave VM is running with a clean image and can be employed with the application by running 'ansible-playbook install-docker-playbook.yml' and 'ansible-playbook deploy-weatherapp-playbook.yml'.
-3. After that, you should be able to ssh into the slave VM and see the app running. Unfortunately, the app is still only accessed through http://20.215.40.23:8000/. I wasn't able to change the ENDPOINT environment variable in docker-compose file to reflect that of the new VM - there is probably a better way to do it and that is the most important thing to fix.
-4. The app can be torn down by running 'ansible-playbook compose-down.yml'.
+# Terraform & Ansible
+I used the VM from the previous section "weatherapp (20.215.40.23)" as an Ansible control-node and Terraform host. 
+1. Connect to the control-node using ssh eficode@20.215.40.23. 
+2. In order to spin up a new VM and deploy the weatherapp on it, run 'bash create-vm-deploy-weatherapp.sh' in 'jakubogo' directory. This script will spin up a new linux virtual machine using Terraform, install docker, docker-compose and deploy the weatherapp with Ansible. The app can then be viewed on 20.215.246.110:8000. Note, that to run this script, you have to be logged in to the Microsoft account, so I don't suppose you will be able to do it yourself, but it was tested and it works :).
+3. The app can be torn down by running '/ansible/ansible-playbook compose-down.yml'.
+4. Now the disappointing part - I wasn't able to dynamically change the ENDPOINT environment variable in the 'docker-compose.yaml' file. This means, that the app spun up using this script, will only work if the first instance on the control node is active. I am aware this is a no-go and defeats the entire purpose of this project, but I couldn't find a way to fix it - I would love to know the correct way to go about this, so I'll appreciate your feedback.
 -------------------------------------------------------
 
 
